@@ -675,7 +675,7 @@
             if (!res.ok) throw new Error('HTTP ' + res.status + ' (pastikan sheet dibagikan/dipublikasikan)');
             const rows = parseCsv(await res.text());
             if (rows.length < 2) return [];
-            const headers = rows[0].map(h => String(h).trim());
+            const headers = rows[0].map(h => String(h).replace(/\s+/g, ' ').trim().toUpperCase());
             const siIdx = headers.indexOf('SI');
             const out = [];
             for (let r = 1; r < rows.length; r++) {
