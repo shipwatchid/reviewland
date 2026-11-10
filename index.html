@@ -643,7 +643,8 @@
         const SPREADSHEET_ID = '1rT-9S76jfTPF9Vi2P1DaeBjZSQdRjoNoYyoaXiBOFv4';
         const SHEET_GID = '0';
         const PUBLISHED_CSV_URL = '';
-        const DATA_CACHE_KEY = 'dashboardDataCache_v1';
+        const DATA_CACHE_KEY = 'dashboardDataCache_v3';
+        const APP_VERSION = 'v3';
 
         function parseCsv(text) {
             const rows = []; let row = [], f = '', q = false;
@@ -665,7 +666,7 @@
 
         async function loadSheetCsv() {
             const base = PUBLISHED_CSV_URL ||
-                'https://docs.google.com/spreadsheets/d/' + SPREADSHEET_ID + '/gviz/tq?tqx=out:csv&gid=' + SHEET_GID;
+                'https://docs.google.com/spreadsheets/d/' + SPREADSHEET_ID + '/gviz/tq?tqx=out:csv&headers=1&gid=' + SHEET_GID;
             const url = base + (base.includes('?') ? '&' : '?') + '_=' + Date.now();
             const ctrl = new AbortController();
             const to = setTimeout(() => ctrl.abort(), 60000);
@@ -676,6 +677,7 @@
             const rows = parseCsv(await res.text());
             if (rows.length < 2) return [];
             const headers = rows[0].map(h => String(h).replace(/\s+/g, ' ').trim().toUpperCase());
+            console.log('[Dashboard ' + APP_VERSION + '] kolom terbaca:', headers.join(' | '));
             const siIdx = headers.indexOf('SI');
             const out = [];
             for (let r = 1; r < rows.length; r++) {
