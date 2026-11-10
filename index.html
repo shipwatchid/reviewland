@@ -215,12 +215,10 @@
             <div class="text-[10px] text-gray-400">Proses bongkar</div>
         </div>
         <div onclick="showKpiModal('onTheWay', 'On The Way')" class="col-span-2 sm:col-span-4 lg:col-span-5 bg-card border border-indigo-900/50 p-3 rounded-lg shadow relative overflow-hidden cursor-pointer transition hover:border-indigo-500">
-            <div class="flex items-end justify-between mb-2">
-                <div>
-                    <div class="text-[10px] text-indigo-400 font-bold uppercase flex items-center gap-1"><i class="fa-solid fa-truck-fast"></i> On The Way</div>
-                    <div class="text-[10px] text-gray-400">Seluruh pengiriman yang masih di jalan</div>
-                </div>
-                <div id="kpiOnTheWay" class="text-3xl font-extrabold text-indigo-400 leading-none">0</div>
+            <div class="mb-2">
+                <div class="text-[10px] text-indigo-400 font-bold uppercase flex items-center gap-1"><i class="fa-solid fa-truck-fast"></i> On The Way</div>
+                <div id="kpiOnTheWay" class="text-3xl font-extrabold text-indigo-400 mt-1 leading-tight">0</div>
+                <div class="text-[10px] text-gray-400">Seluruh pengiriman yang masih di jalan</div>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
             <div onclick="event.stopPropagation(); showKpiModal('onTrack', 'On Track')" class="bg-slate-900/60 border border-lime-900/50 p-2.5 rounded-md relative overflow-hidden cursor-pointer transition hover:border-lime-500 hover:-translate-y-0.5">
@@ -749,8 +747,8 @@
             label.innerHTML = `<span class="live-dot"></span>Update terakhir: ${hh}:${mm}:${ss}`;
         }
 
-        // Auto-refresh data setiap 5 menit supaya tidak perlu klik Sync Data terus.
-        const AUTO_REFRESH_INTERVAL_MS = 5 * 60 * 1000;
+        // Auto-refresh data setiap 1 menit supaya tidak perlu klik Sync Data terus.
+        const AUTO_REFRESH_INTERVAL_MS = 60 * 1000;
         setInterval(() => { if (!document.hidden) fetchSheetData(); }, AUTO_REFRESH_INTERVAL_MS);
 
         function showKpiModal(kpiKey, title) {
